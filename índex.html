@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ariadna Beauty & Make Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- FUENTES -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <!-- ESTILOS -->
+  <style>
+    :root{
+      --gold:#c9a24d;
+      --black:#000;
+      --white:#fff;
+      --gray:#f5f5f5;
+    }
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Montserrat',sans-serif;
+    }
+
+    body{
+      background:#fff;
+      color:#000;
+    }
+
+    /* HEADER */
+    header{
+      text-align:center;
+      padding:60px 20px;
+      border-bottom:1px solid var(--gold);
+    }
+
+    .logo img{
+      width:110px;
+      height:110px;
+      border-radius:50%;
+      border:3px solid var(--gold);
+      box-shadow:0 0 30px var(--gold);
+      animation:glow 3s infinite alternate;
+    }
+
+    @keyframes glow{
+      from{box-shadow:0 0 15px var(--gold)}
+      to{box-shadow:0 0 40px var(--gold)}
+    }
+
+    header h1{
+      margin-top:18px;
+      font-family:'Playfair Display',serif;
+      letter-spacing:3px;
+    }
+
+    /* PRODUCTOS */
+    .container{
+      max-width:1200px;
+      margin:auto;
+      padding:60px 20px;
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:40px;
+    }
+
+    .product{
+      background:#fff;
+      padding:20px;
+      border-radius:32px;
+      text-align:center;
+      box-shadow:0 25px 50px rgba(0,0,0,.15);
+      transition:.6s;
+    }
+
+    .product:hover{
+      transform:translateY(-15px);
+      box-shadow:0 45px 80px rgba(0,0,0,.3);
+    }
+
+    .product img{
+      width:100%;
+      height:280px;
+      object-fit:cover;
+      border-radius:24px;
+      transition:.7s;
+    }
+
+    .product:hover img{
+      transform:scale(1.08);
+    }
+
+    .product h3{
+      margin:15px 0 6px;
+      font-family:'Playfair Display',serif;
+    }
+
+    .price{
+      color:var(--gold);
+      font-weight:700;
+    }
+
+    .stock{
+      font-size:.85rem;
+      margin-top:6px;
+      color:#555;
+    }
+
+    .buttons{
+      display:flex;
+      gap:12px;
+      margin-top:14px;
+    }
+
+    button{
+      flex:1;
+      padding:13px;
+      border:none;
+      border-radius:30px;
+      font-weight:600;
+      cursor:pointer;
+      transition:.3s;
+    }
+
+    .buy{
+      background:var(--black);
+      color:var(--white);
+    }
+
+    .add{
+      background:var(--white);
+      border:2px solid var(--gold);
+      color:var(--gold);
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    /* CARRITO */
+    .cart-btn{
+      position:fixed;
+      bottom:25px;
+      right:25px;
+      width:75px;
+      height:75px;
+      background:var(--black);
+      color:#fff;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:2rem;
+      cursor:pointer;
+      box-shadow:0 20px 45px rgba(0,0,0,.5);
+      z-index:10;
+    }
+
+    .cart-count{
+      position:absolute;
+      top:6px;
+      right:8px;
+      background:var(--gold);
+      width:22px;
+      height:22px;
+      border-radius:50%;
+      font-size:.8rem;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* PANEL CARRITO */
+    .cart-panel{
+      position:fixed;
+      top:0;
+      right:-100%;
+      width:380px;
+      height:100vh;
+      background:#fff;
+      padding:28px;
+      transition:.6s cubic-bezier(.68,-0.55,.27,1.55);
+      box-shadow:-25px 0 60px rgba(0,0,0,.4);
+      z-index:20;
+    }
+
+    .cart-panel.active{
+      right:0;
+    }
+
+    .cart-item{
+      display:flex;
+      justify-content:space-between;
+      margin:12px 0;
+    }
+
+    .cart-item button{
+      background:#000;
+      color:#fff;
+      border-radius:14px;
+      padding:4px 10px;
+    }
+
+    .total{
+      font-weight:700;
+      margin:20px 0;
+      text-align:right;
+    }
+
+    /* CHECKOUT */
+    .checkout input{
+      width:100%;
+      padding:14px;
+      margin-bottom:12px;
+      border-radius:16px;
+      border:1px solid #ccc;
+    }
+
+    .checkout button{
+      width:100%;
+      padding:16px;
+      background:var(--gold);
+      color:#000;
+      border-radius:30px;
+      font-weight:700;
+    }
+
+    /* FOOTER */
+    footer{
+      background:#000;
+      color:#fff;
+      padding:40px 20px;
+      text-align:center;
+    }
+
+    footer span{
+      color:var(--gold);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="logo">
+      <img src="logo.jpg" alt="Logo">
+    </div>
+    <h1>Ariadna Beauty & Make Up</h1>
+  </header>
+
+  <!-- PRODUCTOS -->
+  <div class="container">
+    <div class="products" id="products"></div>
+  </div>
+
+  <!-- BOTÓN CARRITO -->
+  <div class="cart-btn" onclick="toggleCart()">
+    🛒
+    <div class="cart-count" id="count">0</div>
+  </div>
+
+  <!-- PANEL CARRITO -->
+  <div class="cart-panel" id="cartPanel">
+    <h2>Tu carrito</h2>
+    <button onclick="toggleCart()">Salir</button>
+
+    <div id="cartItems"></div>
+    <div class="total" id="total">Total: $0 MXN</div>
+
+    <div class="checkout">
+      <input id="name" placeholder="Nombre completo">
+      <input id="city" placeholder="Ciudad / País">
+      <button onclick="payWhats()">Pagar por WhatsApp</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2026 <span>Ariadna Beauty & Make Up</span>
+  </footer>
+
+  <!-- SCRIPT -->
+  <script>
+    const products = [
+      { name:"Bálsamo labial fresa", price:10, img:"producto1.jpg", stock:4 },
+      { name:"Sérum pestañas", price:40, img:"producto2.jpg", stock:6 },
+      { name:"Perfume Escapade Samoa", price:360, img:"producto3.jpg", stock:3 },
+      { name:"Crema cejas", price:15, img:"producto4.jpg", stock:16 },
+      { name:"Set brochas", price:60, img:"producto5.jpg", stock:2 },
+      { name:"Maxi pinzas azul y rosa", price:15, img:"producto6.jpg", stock:4 }
+    ];
+
+    let cart = [];
+
+    function renderProducts(){
+      const cont = document.getElementById("products");
+      cont.innerHTML = "";
+
+      products.forEach((p,i)=>{
+        cont.innerHTML += `
+          <div class="product">
+            <img src="${p.img}">
+            <h3>${p.name}</h3>
+            <p class="price">$${p.price} MXN</p>
+            <p class="stock">Stock: ${p.stock}</p>
+            <div class="buttons">
+              <button class="buy" onclick="addToCart(${i})">Comprar</button>
+              <button class="add" onclick="addToCart(${i})">Agregar</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function addToCart(i){
+      if(products[i].stock <= 0){
+        alert("Producto agotado");
+        return;
+      }
+      cart.push(products[i]);
+      products[i].stock--;
+      renderProducts();
+      renderCart();
+    }
+
+    function toggleCart(){
+      document.getElementById("cartPanel").classList.toggle("active");
+    }
+
+    function renderCart(){
+      const items = document.getElementById("cartItems");
+      let total = 0;
+      items.innerHTML = "";
+
+      cart.forEach((p,i)=>{
+        total += p.price;
+        items.innerHTML += `
+          <div class="cart-item">
+            <span>${p.name}</span>
+            <span>$${p.price}</span>
+            <button onclick="removeItem(${i})">X</button>
+          </div>
+        `;
+      });
+
+      document.getElementById("total").innerText = `Total: $${total} MXN`;
+      document.getElementById("count").innerText = cart.length;
+    }
+
+    function removeItem(i){
+      products.find(p => p.name === cart[i].name).stock++;
+      cart.splice(i,1);
+      renderProducts();
+      renderCart();
+    }
+
+    function payWhats(){
+      const name = document.getElementById("name").value;
+      const city = document.getElementById("city").value;
+
+      if(!name || !city){
+        alert("Completa tus datos");
+        return;
+      }
+
+      let msg = `Hola, soy ${name}%0AVengo de ${city}%0AQuiero comprar:%0A`;
+      cart.forEach(p=>{
+        msg += `- ${p.name} ($${p.price})%0A`;
+      });
+
+      window.open(`https://wa.me/5215618281442?text=${msg}`);
+    }
+
+    renderProducts();
+  </script>
+
+</body>
+</html>
